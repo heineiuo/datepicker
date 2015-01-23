@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>datepicker.js</title>
+  <script src="http://static.heineiuo.com/libs/requirejs/2.1.14/require.min.js"></script>
+</head>
+<body>
+  
+  <div class="main">
+    <div class="date-picker"></div>
+  </div>
+
+  <div class="operate">
+    <div class="line">
+      <button id="get_time">获取时间</button>
+      <span id="get_time_result"></span>
+    </div>
+
+    <div class="line">
+      <button id="get_timestamp">获取时间戳</button>
+      <span id="get_timestamp_result"></span>
+    </div>
+
+    <div class="line">
+      <button id="set_time_to">将时间设定为</button>
+      <span>
+        <div class="date-picker2"></div>
+      </span>
+    </div>
+  </div>
+
+
+  <style>
+
+.main, .line {
+  padding: 20px 5px;
+}
+
+.date-picker2 {
+  display: inline;
+}
+
+
+  </style>
+
+  <script>
+
+
+    require.config({
+
+      baseUrl: '/libs',
+
+      paths: {
+        "jquery": [
+          "http://static.heineiuo.com/libs/jquery/2.0.3/jquery.min",
+        ],
+
+        "datepicker": [
+          "http://static.heineiuo.com/libs/davinci.datepicker/0.0.1/datepicker"
+        ]
+      }
+    })
+
+    require(['jquery', 'datepicker'], function ($, datepicker) {
+
+      var dp1 = datepicker({
+        selector: '.date-picker',
+        listen: true
+      })
+
+      var dp2 = datepicker({
+        selector: '.date-picker2',
+        listen: true,
+        initDate: new Date('1991/09/23')
+      })
+
+
+      $(document).on('click', '#get_time', function (event) {
+        
+        $('#get_time_result').text(dp1.getTimeDate())
+
+      })
+
+      $(document).on('click', '#get_timestamp', function (event) {
+        
+        $('#get_timestamp_result').text(dp1.getTimestamp())
+
+      })
+
+      $(document).on('click', '#set_time_to', function (event) {
+        
+        dp1.setTime(dp2.getTimeDate())
+      })
+
+    })
+
+  </script>
+
+</body>
+</html>
